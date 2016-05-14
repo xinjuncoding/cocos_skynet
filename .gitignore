@@ -25,3 +25,8 @@
 *.exe
 *.out
 *.app
+
+＃ Project Config
+*.xcscheme
+*.xcuserdatad
+*.xcworkspacedata
