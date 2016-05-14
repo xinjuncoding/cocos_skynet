@@ -2,7 +2,8 @@
 #include "scripting/lua-bindings/manual/CCLuaEngine.h"
 #include "audio/include/SimpleAudioEngine.h"
 #include "cocos2d.h"
-#include "scripting/lua-bindings/manual/lua_module_register.h"
+//#include "scripting/lua-bindings/manual/lua_module_register.h"
+#include "lua_module_register.h"
 
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_LINUX)
 #include "ide-support/CodeIDESupport.h"
@@ -61,6 +62,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     ScriptEngineManager::getInstance()->setScriptEngine(engine);
     lua_State* L = engine->getLuaStack()->getLuaState();
     lua_module_register(L);
+    luaopen_sproto_core(L);
+    luaopen_lpeg(L);
 
     register_all_packages();
 
