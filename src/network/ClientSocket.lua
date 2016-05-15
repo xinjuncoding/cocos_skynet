@@ -3,7 +3,7 @@ local scheduler = cc.Director:getInstance():getScheduler()
 
 local crypt = cryptcore
 local proto = require "proto"
-local sproto = require "lib.sproto"
+local sproto = require "sproto"
 local socket = clientsocket
 
 local host = sproto.new(proto.s2c):host "package"
