@@ -142,12 +142,8 @@ local session = 0
 
 function ClientSocket:send_request(name, args)
 	session = session + 1
-	local str = request(name, args, session) --.. string.char(a)..string.char(b)..string.char(c)..string.char(d)
+	local str = request(name, args, session)
 
-	-- local host = sproto.new(proto.c2s):host "package"
-	-- local type, name, request, response  = host:dispatch(str)
-	-- print("******** sendRequest:", type, name, request, response)
-	
 	self:send_package(str, session)
 	print("Request:", session)
 	return session

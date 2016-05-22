@@ -55,10 +55,13 @@ function MainScene:login_handle(  )
     local function loginsuccess( )
         self.network_:removeEventListenersByTag(loginsuccess)
         local function resp_callback(args)
+            print("************ resp_callback")
             self.player_:login_get_rolelist(args)
             self:openGameScene()
         end
         self:sendRequest("login_get_rolelist", nil, resp_callback)
+
+        -- self:sendRequest("heartbeat")
     end
     self.network_:addEventListener("GAME_AUTH_SUCCESS", loginsuccess, loginsuccess)
 end
