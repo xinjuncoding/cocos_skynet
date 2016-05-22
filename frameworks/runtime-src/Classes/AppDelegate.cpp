@@ -65,6 +65,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     luaopen_sproto_core(L);
     luaopen_lpeg(L);
     luaopen_clientsocket(L);
+    luaopen_crypt(L);
+    luaopen_bit32(L);
+    luaopen_pack(L);
 
     register_all_packages();
 

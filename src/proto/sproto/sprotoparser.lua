@@ -14,6 +14,7 @@ if _VERSION == "Lua 5.3" then
 		return string.pack("<I2",id)
 	end
 else
+
 	function packbytes(str)
 		local size = #str
 		local a = size % 256

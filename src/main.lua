@@ -6,9 +6,9 @@ cc.FileUtils:getInstance():addSearchPath("src/proto/sproto/")
 
 require "config"
 require "cocos.init"
-require "proto.sproto.test"
+require "testrpc"
 local function main()
-    require("app.MyApp"):create():run()
+    require("app.GameApp"):create():run()
 end
 
 local status, msg = xpcall(main, __G__TRACKBACK__)

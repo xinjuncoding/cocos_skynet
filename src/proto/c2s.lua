@@ -90,5 +90,6 @@ scene_enter 7 {
 	}
 }
 
+heartbeat 8 {}
 
 ]]

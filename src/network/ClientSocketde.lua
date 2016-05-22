@@ -2,7 +2,7 @@
 local scheduler = cc.Director:getInstance():getScheduler()
 
 local crypt = cryptcore
-local proto = require "proto.proto"
+local proto = require "proto.testproto"
 local sproto = require "sproto"
 local socket = clientsocket
 
@@ -32,16 +32,9 @@ local last = ""
 local ClientSocket = class("ClientSocket")
 
 function ClientSocket:ctor( args )
-	self.login_ip_ 	 	= args.login_ip 
-	self.login_port_ 	= args.login_port
-	self.gamesvr_ip_ 	= args.gamesvr_ip 
-	self.gamesvr_port_ 	= args.gamesvr_port
+	self.gamesvr_ip_ 	= "127.0.0.1"-- args.gamesvr_ip 
+	self.gamesvr_port_ 	= "8888" -- args.gamesvr_port
 
-	self.server_name_ 	= args.server_name
-	self.user_ 			= args.user
-	self.passwd_ 		= args.passwd
-
-	self.stype_ = stype.login  -- 用作登陆的(1),还是链接到游戏服务器的(2)
 	self.fd_ = 0
 
 	cc.bind(self, "event")
@@ -74,12 +67,7 @@ end
 
 function ClientSocket:connect( )
 	self.is_close_ = false
-	if self.stype_ == stype.normal then 
-		self.is_auth_ = false
-		self.fd_ = socket.connect(self.gamesvr_ip_, self.gamesvr_port_)
-	elseif self.stype_ == stype.login then 
-		self.fd_ = socket.connect(self.login_ip_, self.login_port_)
-	end
+	self.fd_ = socket.connect(self.gamesvr_ip_, self.gamesvr_port_)
 
 	local function _slcon()
 		local ret = socket.slcon(self.fd_)
@@ -89,10 +77,8 @@ function ClientSocket:connect( )
 
 			if ret == 0 then 
 				print("[ClientSocket] 连接成功！")
-				if self.stype_ == stype.normal then 
-					self:send_server_auth()
-				end
 				self:recv()
+				self:dispatchEvent({name="CONNECT_SUCCESS"})
 			else 
 				print("[ClientSocket] 链接失败")
 				self:close()
@@ -105,139 +91,15 @@ end
 
 function ClientSocket:recv( )
 	local function _recv()
-		if self.stype_ == stype.login then 
-			self:login_package()
-		elseif self.stype_ == stype.normal then 
-			self:dispatch_package()
-		end
+		self:dispatch_package()
 	end
 	self.recv_sheduler_ = scheduler:scheduleScriptFunc(_recv, 0.05, false)
 end
 
-function ClientSocket:login_send( pack )
-	socket.send(self.fd_, pack .. "\n")
-end
-
-function ClientSocket:login_logic( msg )
-	if not self.login_step_ then 
-		self.login_step_ = 1
-	end
-
-	if self.login_step_ == 1 then 
-		self.challenge_ = crypt.base64decode(msg)
-		self.clientkey_ = crypt.randomkey()
-		self:login_send(crypt.base64encode(crypt.dhexchange(self.clientkey_)))
-
-	elseif self.login_step_ == 2 then 
-		self.secret_ = crypt.dhsecret(crypt.base64decode(msg), self.clientkey_)
-		self.hmac_ = crypt.hmac64(self.challenge_, self.secret_)
-		self:login_send(crypt.base64encode(self.hmac_))
-
-		self.token_ = {
-			server 	= self.server_name_,
-			user 	= self.user_,
-			pass 	= self.passwd_,
-		}
-
-		local function encode_token(token)
-			return string.format("%s@%s:%s",
-				crypt.base64encode(token.user),
-				crypt.base64encode(token.server),
-				crypt.base64encode(token.pass))
-		end
-
-		local etoken = crypt.desencode(self.secret_, encode_token(self.token_))
-		local b = crypt.base64encode(etoken)
-		self:login_send(crypt.base64encode(etoken))
-
-	elseif self.login_step_ == 3 then 
-		local code = tonumber(string.sub(msg, 1, 3))
-		self:close()
-		if code == 200 then 
-			self.subid_ = crypt.base64decode(string.sub(msg, 5))
-			print("*** 登陆成功:", self.subid_)
-			self.stype_ = stype.normal
-			self:connect()
-		else 
-			print("*** 登陆失败, error:", msg)
-			self.login_step_ = 0  -- 重置登陆步骤
-			self:dispatchEvent({name = "LOGIN_AUTH_ERROR"}, msg)
-		end
-	end
-
-	self.login_step_ = self.login_step_ + 1
-end
-
-function ClientSocket:login_unpack( last )
-	local from = last:find("\n", 1, true)
-	if from then
-		return last:sub(1, from-1), last:sub(from+1)
-	end
-	return nil, last
-end
-
-function ClientSocket:login_recv( last )
-	local result
-	result, last = self:login_unpack(last)
-	if result then
-		return result, last
-	end
-	local ret, r = socket.recv(self.fd_)
-	if ret > 0 then
-		return nil, last
-	end
-
-	if ret < 0 then
-		scheduler:unscheduleScriptEntry(self.recv_sheduler_)
-		self.recv_sheduler_ = nil
-		self:close()
-		self.login_step_ = 1  -- 重置登陆步骤
-		self:dispatchEvent({name = "NETWORK_ERROR_LOGIN"})
-		error "Server closed"
-	end
-	return self:login_unpack(last .. r)
-end
-
-function ClientSocket:login_package()
-	while true do
-		if self.is_close_ then 
-			break
-		end
-
-		local v
-		v, last = self:login_recv(last)
-		if not v then
-			break
-		end
-
-		self:login_logic(v)
-	end
-end
-
-function ClientSocket:send_server_auth( )
-	if not self.index_ then 
-		self.index_ = 0
-	end
-	self.index_ = self.index_ + 1
-	local handshake = string.format("%s@%s#%s:%d", crypt.base64encode(self.token_.user), crypt.base64encode(self.token_.server),crypt.base64encode(self.subid_) , self.index_)
-	local hmac = crypt.hmac64(crypt.hashkey(handshake), self.secret_)
-	self:send_package(handshake .. ":" .. crypt.base64encode(hmac))
-end
-
 function ClientSocket:send_package(pack, session)
-	-- local size = #pack
-	-- local package = string.char(bit32.extract(size,8,8)) ..
-	-- 	string.char(bit32.extract(size,0,8))..
-	-- 	pack
-
 	local package
 	local size = #pack
-	if session then 
-		size = size + 4
-		package = string.pack(">H", size)..pack..string.pack(">I", session)
-	else 
-		package = string.pack(">H", size)..pack
-	end 
+	package = string.pack(">H", size)..pack
 	
 	socket.send(self.fd_, package)
 end
@@ -340,18 +202,9 @@ function ClientSocket:print_package(t, ...)
 		assert(t == "RESPONSE")
 		self:print_response(...)
 	end
-end
 
-local function recv_response(v)
-	local content = v:sub(1,-6)
-	local ok = v:sub(-5,-5):byte()
-	local session = 0
-	for i=-4,-1 do
-		local c = v:byte(i)
-		session = session + bit32.lshift(c,(-1-i) * 8)
-	end
-	
-	return ok ~=0 , content, session
+	self:sendRequest("handshake")
+	self:sendRequest("set", { what = "hello", value = "world" })
 end
 
 function ClientSocket:dispatch_package()
@@ -366,25 +219,7 @@ function ClientSocket:dispatch_package()
 			break
 		end
 
-		if self.is_auth_ then 
-			local isok, content, session = recv_response(v)
-			if isok then 
-				self:print_package(host:dispatch(content))
-			else 
-				print("********************* error:", content, session)
-			end
-		else
-			local code = tonumber(string.sub(v, 1, 3))
-			if code == 200 then 
-				self.is_auth_ = true
-				print("登陆server成功")
-				self:dispatchEvent({name = "GAME_AUTH_SUCCESS"})
-			else 
-				print("********* 验证失败! 原因:", v)
-				self:close()
-				self:dispatchEvent({name = "GAME_AUTH_ERROR"}, v)
-			end
-		end
+		self:print_package(host:dispatch(v))
 
 	end
 end

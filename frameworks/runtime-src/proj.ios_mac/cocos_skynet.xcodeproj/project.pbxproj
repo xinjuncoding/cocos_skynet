@@ -13,6 +13,7 @@
 		15427CEE198F24AF00DC375D /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4171834BDA200142BE0 /* libcocos2d Mac.a */; };
 		15A8A4491834C64F00142BE0 /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 5023810C17EBBCAC00990C9B /* Icon-114.png */; };
 		15A8A4881834C90F00142BE0 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4871834C90E00142BE0 /* libcurl.dylib */; };
+		180325451CF01AF1002A74E3 /* lbitlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 180325441CF01AF1002A74E3 /* lbitlib.c */; };
 		188774811CE70F0600C22116 /* lsproto.c in Sources */ = {isa = PBXBuildFile; fileRef = 1887747D1CE70F0600C22116 /* lsproto.c */; };
 		188774821CE70F0600C22116 /* sproto.c in Sources */ = {isa = PBXBuildFile; fileRef = 1887747F1CE70F0600C22116 /* sproto.c */; };
 		1887748F1CE7176100C22116 /* lpcap.c in Sources */ = {isa = PBXBuildFile; fileRef = 188774841CE7176100C22116 /* lpcap.c */; };
@@ -23,6 +24,7 @@
 		188774961CE71EFE00C22116 /* lua_clientsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 188774941CE71EFE00C22116 /* lua_clientsocket.c */; };
 		188774971CE71EFE00C22116 /* lua_crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 188774951CE71EFE00C22116 /* lua_crypt.c */; };
 		188774991CE7203300C22116 /* lsha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 188774981CE7203300C22116 /* lsha1.c */; };
+		18F5257E1CF15D41007D9239 /* lpack.c in Sources */ = {isa = PBXBuildFile; fileRef = 18F5257D1CF15D41007D9239 /* lpack.c */; };
 		1AF4C403178663F200122817 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AF4C402178663F200122817 /* libz.dylib */; };
 		3EEEDB61197107C0006A9FF8 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEEDB60197107C0006A9FF8 /* MediaPlayer.framework */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; };
@@ -198,6 +200,7 @@
 		15A8A4031834BDA200142BE0 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = "../../cocos2d-x/build/cocos2d_libs.xcodeproj"; sourceTree = "<group>"; };
 		15A8A4871834C90E00142BE0 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		15C1568D1683131500D239F2 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../../cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = "<group>"; };
+		180325441CF01AF1002A74E3 /* lbitlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lbitlib.c; sourceTree = "<group>"; };
 		1887747D1CE70F0600C22116 /* lsproto.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lsproto.c; sourceTree = "<group>"; };
 		1887747E1CE70F0600C22116 /* msvcint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msvcint.h; sourceTree = "<group>"; };
 		1887747F1CE70F0600C22116 /* sproto.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sproto.c; sourceTree = "<group>"; };
@@ -216,6 +219,7 @@
 		188774941CE71EFE00C22116 /* lua_clientsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lua_clientsocket.c; path = ../Classes/lua_clientsocket.c; sourceTree = "<group>"; };
 		188774951CE71EFE00C22116 /* lua_crypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lua_crypt.c; path = ../Classes/lua_crypt.c; sourceTree = "<group>"; };
 		188774981CE7203300C22116 /* lsha1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lsha1.c; path = ../Classes/lsha1.c; sourceTree = "<group>"; };
+		18F5257D1CF15D41007D9239 /* lpack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lpack.c; path = ../Classes/lpack.c; sourceTree = "<group>"; };
 		1AF4C402178663F200122817 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		3EEEDB60197107C0006A9FF8 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		5023810717EBBCAC00990C9B /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
@@ -355,6 +359,7 @@
 		1887747C1CE70F0600C22116 /* sproto */ = {
 			isa = PBXGroup;
 			children = (
+				180325441CF01AF1002A74E3 /* lbitlib.c */,
 				1887747D1CE70F0600C22116 /* lsproto.c */,
 				1887747E1CE70F0600C22116 /* msvcint.h */,
 				1887747F1CE70F0600C22116 /* sproto.c */,
@@ -532,6 +537,7 @@
 		F293BB7C15EB830F00256477 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				18F5257D1CF15D41007D9239 /* lpack.c */,
 				188774831CE7176100C22116 /* lpeg */,
 				1887747C1CE70F0600C22116 /* sproto */,
 				9FC7603E1A67791200D1E6E7 /* ide-support */,
@@ -783,7 +789,9 @@
 			files = (
 				1887748F1CE7176100C22116 /* lpcap.c in Sources */,
 				9FC760451A677A4A00D1E6E7 /* SimpleConfigParser.cpp in Sources */,
+				180325451CF01AF1002A74E3 /* lbitlib.c in Sources */,
 				5023812517EBBCAC00990C9B /* RootViewController.mm in Sources */,
+				18F5257E1CF15D41007D9239 /* lpack.c in Sources */,
 				F293BB9C15EB831F00256477 /* AppDelegate.cpp in Sources */,
 				188774901CE7176100C22116 /* lpcode.c in Sources */,
 				9FFE009F1ACCF59E00D6E35A /* lua_debugger.c in Sources */,

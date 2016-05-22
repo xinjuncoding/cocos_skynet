@@ -1,10 +1,11 @@
 
 local ViewBase = class("ViewBase", cc.Node)
 
-function ViewBase:ctor(app, name)
+function ViewBase:ctor()
     self:enableNodeEvents()
-    self.app_ = app
-    self.name_ = name
+    self.app_ = GameApp
+    self.network_   = self.app_.network_
+    self.player_    = self.app_.player_
 
     -- check CSB resource file
     local res = rawget(self.class, "RESOURCE_FILENAME")
@@ -17,7 +18,38 @@ function ViewBase:ctor(app, name)
         self:createResoueceBinding(binding)
     end
 
+    self:setNetWorkSession()
+
     if self.onCreate then self:onCreate() end
+end
+
+function ViewBase:setNetWorkSession( )
+    self.msg_seesion_ = {}
+
+    self.netnode_ = cc.Node:create()
+    self:addChild(self.netnode_)
+
+    local function onNodeEvent(event)
+        if "enter" == event then
+        elseif "exit" == event then
+            for _, func in pairs(self.msg_seesion_) do 
+                func()
+            end
+            self.msg_seesion_ = {}
+        end
+    end
+    self.netnode_:registerScriptHandler(onNodeEvent)
+end
+
+function ViewBase:sendRequest( name, args, func )
+    local lsn = self.network_:sendRequest(name, args, func)
+    if lsn then 
+        table.insert(self.msg_seesion_, lsn)
+    end
+end
+
+function ViewBase:listenServerMsg( name, func )
+    table.insert(self.msg_seesion_, self.network_:listenServerMsg(name, func))
 end
 
 function ViewBase:getApp()
@@ -25,7 +57,7 @@ function ViewBase:getApp()
 end
 
 function ViewBase:getName()
-    return self.name_
+    return self.__cname
 end
 
 function ViewBase:getResourceNode()
