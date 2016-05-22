@@ -60,8 +60,6 @@ function MainScene:login_handle(  )
             self:openGameScene()
         end
         self:sendRequest("login_get_rolelist", nil, resp_callback)
-
-        -- self:sendRequest("heartbeat")
     end
     self.network_:addEventListener("GAME_AUTH_SUCCESS", loginsuccess, loginsuccess)
 end

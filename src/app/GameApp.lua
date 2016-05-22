@@ -24,7 +24,7 @@ function GameApp:onCreate()
     self.network_ 	= ClientSocket.new(args)
     self.player_ 	= PlayerModel.new()
 
-    local network = ClientSocketde.new()
+    -- local network = ClientSocketde.new()
     -- network:connect()
 end
 

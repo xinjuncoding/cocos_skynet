@@ -294,7 +294,7 @@ function ClientSocket:sendRequest( name, args, func )
     if not func then 
     	return
     end
-    
+
     local function resp_callback(event, session, args)
         self:removeEventListenersByTag(session)
     	if not session then 
@@ -320,12 +320,12 @@ function ClientSocket:listenServerMsg( name, func )
 end
 
 function ClientSocket:print_request(name, args)
-	print("REQUEST", name)
+	print("====REQUEST", name)
 	self:dispatchEvent({name = "REQUEST_"..name}, args )
 end
 
 function ClientSocket:print_response(session, args)
-	print("RESPONSE", session)
+	print("=====RESPONSE", session)
 	self:dispatchEvent({name = "RESPONSE_"..session}, session, args )
 end
 
