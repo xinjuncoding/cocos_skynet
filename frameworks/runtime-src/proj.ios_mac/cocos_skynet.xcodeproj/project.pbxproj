@@ -14,6 +14,18 @@
 		15A8A4491834C64F00142BE0 /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 5023810C17EBBCAC00990C9B /* Icon-114.png */; };
 		15A8A4881834C90F00142BE0 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4871834C90E00142BE0 /* libcurl.dylib */; };
 		180325451CF01AF1002A74E3 /* lbitlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 180325441CF01AF1002A74E3 /* lbitlib.c */; };
+		18680A4B1CF2BF9000701436 /* lpack.c in Sources */ = {isa = PBXBuildFile; fileRef = 18F5257D1CF15D41007D9239 /* lpack.c */; };
+		18680A4C1CF2BF9000701436 /* lpcap.c in Sources */ = {isa = PBXBuildFile; fileRef = 188774841CE7176100C22116 /* lpcap.c */; };
+		18680A4D1CF2BF9000701436 /* lpcode.c in Sources */ = {isa = PBXBuildFile; fileRef = 188774861CE7176100C22116 /* lpcode.c */; };
+		18680A4E1CF2BF9000701436 /* lpprint.c in Sources */ = {isa = PBXBuildFile; fileRef = 188774881CE7176100C22116 /* lpprint.c */; };
+		18680A4F1CF2BF9000701436 /* lptree.c in Sources */ = {isa = PBXBuildFile; fileRef = 1887748A1CE7176100C22116 /* lptree.c */; };
+		18680A501CF2BF9000701436 /* lpvm.c in Sources */ = {isa = PBXBuildFile; fileRef = 1887748D1CE7176100C22116 /* lpvm.c */; };
+		18680A511CF2BF9000701436 /* lbitlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 180325441CF01AF1002A74E3 /* lbitlib.c */; };
+		18680A521CF2BF9000701436 /* lsproto.c in Sources */ = {isa = PBXBuildFile; fileRef = 1887747D1CE70F0600C22116 /* lsproto.c */; };
+		18680A531CF2BF9000701436 /* sproto.c in Sources */ = {isa = PBXBuildFile; fileRef = 1887747F1CE70F0600C22116 /* sproto.c */; };
+		18680A541CF2BF9000701436 /* lsha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 188774981CE7203300C22116 /* lsha1.c */; };
+		18680A551CF2BF9000701436 /* lua_clientsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 188774941CE71EFE00C22116 /* lua_clientsocket.c */; };
+		18680A561CF2BF9000701436 /* lua_crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 188774951CE71EFE00C22116 /* lua_crypt.c */; };
 		188774811CE70F0600C22116 /* lsproto.c in Sources */ = {isa = PBXBuildFile; fileRef = 1887747D1CE70F0600C22116 /* lsproto.c */; };
 		188774821CE70F0600C22116 /* sproto.c in Sources */ = {isa = PBXBuildFile; fileRef = 1887747F1CE70F0600C22116 /* sproto.c */; };
 		1887748F1CE7176100C22116 /* lpcap.c in Sources */ = {isa = PBXBuildFile; fileRef = 188774841CE7176100C22116 /* lpcap.c */; };
@@ -774,6 +786,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18680A4B1CF2BF9000701436 /* lpack.c in Sources */,
+				18680A4C1CF2BF9000701436 /* lpcap.c in Sources */,
+				18680A4D1CF2BF9000701436 /* lpcode.c in Sources */,
+				18680A4E1CF2BF9000701436 /* lpprint.c in Sources */,
+				18680A4F1CF2BF9000701436 /* lptree.c in Sources */,
+				18680A501CF2BF9000701436 /* lpvm.c in Sources */,
+				18680A511CF2BF9000701436 /* lbitlib.c in Sources */,
+				18680A521CF2BF9000701436 /* lsproto.c in Sources */,
+				18680A531CF2BF9000701436 /* sproto.c in Sources */,
+				18680A541CF2BF9000701436 /* lsha1.c in Sources */,
+				18680A551CF2BF9000701436 /* lua_clientsocket.c in Sources */,
+				18680A561CF2BF9000701436 /* lua_crypt.c in Sources */,
 				C07828FA18B4D72E00BD2287 /* SimulatorApp.mm in Sources */,
 				9FFE00A01ACCF59E00D6E35A /* lua_debugger.c in Sources */,
 				5023813317EBBCE400990C9B /* AppDelegate.cpp in Sources */,
